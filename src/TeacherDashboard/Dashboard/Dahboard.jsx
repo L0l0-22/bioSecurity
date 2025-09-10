@@ -33,8 +33,8 @@ export default function Dashboard() {
   );
 
   return (
-    <div className="md:space-y-5 text-gray-900 dark:text-gray-100">
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 mt-5 mx-2">
+    <div className="space-y-5 text-gray-900 dark:text-gray-100 px-5 lg:px-0">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 mt-5 mx-2 w-full">
         {stats.map((item, i) => (
           <div
             key={i}
@@ -63,10 +63,7 @@ export default function Dashboard() {
         <FacilitySummary />
         <HorsesCheckPoints />
       </div>
-
-      <div className="p-4">
-        <Table rows={initialRows} />
-      </div>
+      <Table rows={initialRows} />
     </div>
   );
 }

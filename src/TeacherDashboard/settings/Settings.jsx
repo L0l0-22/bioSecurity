@@ -21,17 +21,18 @@ const Settings = () => {
   const activeTabComponent = tabs.find(tab => tab.id === activeTab)?.component;
 
   return (
-    <div className="min-h-screen bg-white p-6 dark:bg-gray-950 dark:text-gray-100">
-      <div>
-        <div className="overflow-hidden">
-          <div className="border-b border-gray-200 px-6 items-center flex justify-center dark:border-gray-700">
-            {/* Navigation Tabs */}
-            <nav className="flex space-x-8 -mb-px">
+    <div className="min-h-screen bg-white px-3 py-4 md:p-6 dark:bg-gray-950 dark:text-gray-100">
+      <div className="min-w-0">
+        <div className="overflow-hidden rounded-2xl bg-white dark:bg-gray-950">
+          {/* Tabs Row */}
+          <div className="border-b border-gray-200 px-3 md:px-6 flex items-center justify-start md:justify-center dark:border-gray-700">
+            {/* Navigation Tabs (scroll on mobile) */}
+            <nav className="flex w-full md:w-auto gap-4 md:gap-8 -mb-px overflow-x-auto whitespace-nowrap">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`py-4 px-1 font-semibold text-lg border-b-2 transition-colors duration-200
+                  className={`shrink-0 py-3 md:py-4 px-3 md:px-1 font-semibold text-sm md:text-lg border-b-2 transition-colors duration-200
                     ${
                       activeTab === tab.id
                         ? 'border-sec text-sec'
@@ -45,7 +46,9 @@ const Settings = () => {
           </div>
 
           {/* Tab Content */}
-          <div className="p-6">{activeTabComponent || <div>Select a tab</div>}</div>
+          <div className="p-3 md:p-6 min-w-0">
+            {activeTabComponent || <div>Select a tab</div>}
+          </div>
         </div>
       </div>
     </div>

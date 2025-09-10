@@ -5,8 +5,9 @@ import { FiBell, FiChevronDown, FiChevronUp, FiSearch, FiSettings } from "react-
 import { FaRegUser } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import { useTheme } from "../theme/ThemeContext";
+import { MdMenu } from "react-icons/md";
 
-export default function Header() {
+export default function Header({ onToggleSidebar }) {
   const { theme, toggle } = useTheme();
   useEffect(() => {
     const root = document.documentElement;
@@ -125,11 +126,20 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 right-0 left-0 z-50 border-b border-gray-200 bg-gray-100 backdrop-blur dark:border-gray-800 dark:bg-gray-950/70">
-      <div className="mx-auto flex h-24 items-center justify-between gap-4 px-4">
+      <div className="mx-auto flex lg:flex-row flex-col lg:items-center justify-between gap-4 p-4">
         {/* left */}
-        <div className="flex items-center gap-4">
-          <img src={logo} alt="One Admin" className="h-20 w-auto" />
-
+        <div className="flex flex-col md:flex-row items-center gap-4">
+          <div className="flex items-center">
+              <button
+              type="button"
+              onClick={onToggleSidebar}
+              className="lg:hidden inline-flex items-center justify-center rounded-md bg-main text-white p-2 dark:bg-gray-800 dark:text-gray-100"
+              aria-label="Toggle sidebar"
+            >
+              <MdMenu size={22} />
+            </button>
+            <img src={logo} alt="One Admin" className="h-20 w-auto" />
+          </div>
           {/* search box */}
           <div ref={searchRef} className="relative w-full max-w-md">
             <form
@@ -187,7 +197,7 @@ export default function Header() {
         </div>
 
         {/* right */}
-        <div className="flex items-center gap-3">
+        <div className="flex justify-center md:justify-end items-center gap-3">
           <NavLink
             to="/settings"
             className="inline-flex bg-main text-white hover:bg-sec h-10 w-10 items-center justify-center rounded-full border border-gray-200 
@@ -239,12 +249,10 @@ export default function Header() {
               <Link to="/profile" className="block px-3 py-2 text-sm hover:bg-purple-50 dark:hover:bg-gray-800">
                 View Profile
               </Link>
-
               <Link to="/settings" className="block px-3 py-2 text-sm hover:bg-purple-50 dark:hover:bg-gray-800">
                 Setting
               </Link>
-
-              <Link to="/logout" className="block px-3 py-2 text-sm hover:bg-red-100 dark:hover:bg-gray-800">
+              <Link className="block px-3 py-2 text-sm hover:bg-red-100 dark:hover:bg-red-600">
                 Logout
               </Link>
             </div>

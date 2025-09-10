@@ -21,16 +21,15 @@ export default function TeacherDash() {
   ];
 
   return (
-    <div className="flex min-h-screen bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
+    <div className="flex min-h-screen overflow-hidden bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
       {/* Header */}
       <div>
-        <Header />
+        <Header onToggleSidebar={() => setSidebarOpen(sidebarOpen ? false : true)} />
       </div>
-
       {/* Sidebar */}
       <aside
         className={`
-          fixed top-0 left-0 z-40 h-screen w-32 pt-32
+          fixed top-0 left-0 z-40 min-h-screen h-full w-32 pt-64 md:pt-44 lg:pt-32 overflow-y-auto
           bg-gray-100 border-r border-gray-200
           dark:bg-gray-900 dark:border-gray-800
           flex flex-col items-center py-6 
@@ -73,17 +72,8 @@ export default function TeacherDash() {
         </ul>
       </aside>
 
-      {/* Mobile menu button */}
-      <button
-        onClick={() => setSidebarOpen(!sidebarOpen)}
-        className="fixed top-[3.25rem] left-4 z-50 lg:hidden bg-main text-white p-2 rounded-md dark:bg-gray-800 dark:text-gray-100"
-        aria-label="Toggle sidebar"
-      >
-        <MdMenu size={24} />
-      </button>
-
       {/* Main content renders the nested route */}
-      <main className="flex-1 pb-8 px-8 pt-4 mt-28 lg:ml-32">
+      <main className="flex-1 min-w-0 pb-8 md:px-8 pt-4 mt-64 lg:mt-28 lg:ml-32">
         <Outlet />
       </main>
     </div>

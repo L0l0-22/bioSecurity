@@ -28,16 +28,19 @@ export default function CheckPoint() {
     setRows((r) => [...r, payload]);
   };
   return (
-    <div>
-        <div className='flex justify-between items-center mb-10'>
-            <p className='text-black text-4xl font-medium'>Check Point</p>
-            <button
+    <div className='px-4'>
+        <div className="add-horse-btn-section mb-12 flex flex-col md:flex-row items-center justify-between ">
+                <h6 className="title-1 text-xl font-semibold text-gray-900 dark:text-gray-100">
+                  Check Point
+                </h6>
+                <button
                 onClick={() => setOpen(true)}
-                 className='flex gap-2 bg-main px-3 py-1 text-xl items-center text-white rounded-md hover:opacity-90'>
-                <IoMdAdd />
-                Add Check Point
-            </button>
-        </div>
+                  className="mt-3 md:mt-0 flex items-center gap-2 rounded-md bg-main px-3 py-1 text-xl font-medium text-white hover:opacity-90 dark:bg-main"
+                >
+                  <IoMdAdd />
+                  Add Check Point
+                </button>
+              </div>
         <Table rows={rows}/>
         <AddModal open={open} onClose={() => setOpen(false)} onSubmit={addRow} />
     </div>

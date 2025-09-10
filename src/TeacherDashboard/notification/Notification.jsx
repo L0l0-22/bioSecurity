@@ -48,11 +48,11 @@ const Notifications = () => {
   };
 
   return (
-    <section id="pages" className="py-4">
+    <section id="pages" className="p-4">
       <h6 className="title-2 mb-3 dark:text-gray-100">Alerts Summary</h6>
 
       {/* Filters */}
-      <div className="filters flex justify-between items-center">
+      <div className="filters flex flex-col gap-5 sm:flex-row justify-between items-center">
         <ul className="nav filter-tabs flex gap-2">
           <li>
             <button
@@ -88,15 +88,15 @@ const Notifications = () => {
         </button>
       </div>
 
-      <div className="notifications-wrapper mt-4" id="notifList">
+      <div className=" mt-4" id="notifList">
         {filteredNotifications.map((notification) => (
           <div
             key={notification.id}
             className={`notification-card ${
               notification.isUnread ? "unread" : "read"
-            } dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700`}
+            } dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 `}
           >
-            <div className="notification-content flex items-start p-3 border rounded-lg dark:border-gray-600">
+            <div className="flex flex-col sm:flex-row items-start p-3 gap-3 sm:gap-0 border rounded-lg dark:border-gray-600">
               <div className="notification-date mr-3 text-center">
                 <span className="month block font-bold">
                   {notification.month}

@@ -210,11 +210,11 @@ body.modal-open {
 
 
 .flexing-horses {
-
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	gap: 30px
+	gap: 30px;
+	justify-content: center;
 }
 
 .horse-container {
@@ -488,8 +488,9 @@ body.dark .details-card {
   width: min(900px, 95vw) !important;
 }
 
-.notifications-wrapper { max-width: 100%; padding: 1rem; }
-.filters{
+.notifications-wrapper { 
+	max-width: 100%; 
+	padding: 1rem; 
 	display: flex;
 	justify-content: space-between;
 	align-items: center;

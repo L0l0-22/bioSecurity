@@ -10,11 +10,11 @@ export default function FacilitySummary() {
 
   return (
     <div className="w-full lg:w-[48%] rounded-2xl border border-gray-200 bg-[#f7f7f8] p-6 shadow-lg dark:border-gray-800 dark:bg-gray-950">
-      <div className="flex items-center justify-between gap-6">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-6">
         {items.map((it, i) => (
           <div
             key={i}
-            className="mt-20 w-full rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm dark:border-gray-800 dark:bg-gray-900"
+            className="md:mt-20 w-full rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm dark:border-gray-800 dark:bg-gray-900"
           >
             <p className="mb-3 text-xl font-normal text-gray-800 dark:text-gray-200">
               {it.title}

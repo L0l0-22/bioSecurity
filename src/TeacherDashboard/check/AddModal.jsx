@@ -52,7 +52,7 @@ export default function AddModal({ open, onClose, onSubmit }) {
         onClick={onClose}
       />
       {/* modal */}
-      <div className="relative w-full max-w-5xl rounded-xl border border-gray-200 bg-white p-6 shadow-xl dark:border-gray-800 dark:bg-gray-900">
+      <div className="relative w-full max-h-[90vh] overflow-auto max-w-xs sm:max-w-xl md:max-w-3xl lg:max-w-5xl rounded-xl border border-gray-200 bg-white p-6 shadow-xl dark:border-gray-800 dark:bg-gray-900">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-3xl font-semibold text-main">Horse Checkpoint Information</h2>
           <button

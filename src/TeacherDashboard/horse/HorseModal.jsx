@@ -30,7 +30,7 @@ return (
     >
     <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white dark:bg-[#202226] rounded-xl shadow-lg w-full max-w-7xl my-10 p-6 relative max-h-[90vh] overflow-y-auto"
+        className="bg-white dark:bg-[#202226] rounded-xl shadow-lg w-full max-h-[90vh] overflow-auto max-w-xs sm:max-w-xl md:max-w-3xl lg:max-w-5xl  my-10 p-6 relative"
     >
         {/* Header */}
         <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-3">
@@ -38,10 +38,11 @@ return (
             <span>Add New Horse</span>
         </h2>
         <button
-            onClick={closeModal}
-            className="text-pink-600 hover:text-pink-800 text-2xl font-bold"
+        onClick={closeModal}
+        className="rounded-md px-2 py-1 text-gray-500 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+        aria-label="Close"
         >
-            &times;
+        ✕
         </button>
         </div>
 

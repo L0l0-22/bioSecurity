@@ -110,7 +110,7 @@ export default function HorseSection() {
         </h6>
         <button
           onClick={openModal}
-          className="flex items-center gap-2 rounded-md bg-main px-3 py-1 text-xl font-medium text-white hover:opacity-90 dark:bg-main"
+          className="mt-3 md:mt-0 flex items-center gap-2 rounded-md bg-main px-3 py-1 text-xl font-medium text-white hover:opacity-90 dark:bg-main"
         >
           <IoMdAdd />
           Add Horse
@@ -127,7 +127,7 @@ export default function HorseSection() {
               onClick={() => showDetails(h)}
             >
               <div className="horse-img-container">
-                <img src={h.img} alt={h.name} className="rounded-md" />
+                <img src={h.img} alt={h.name} />
               </div>
               <div className="bottom-sec text-gray-800 dark:text-gray-200">
                 <h5 className="dark:text-gray-100">{h.name}</h5>
@@ -147,7 +147,7 @@ export default function HorseSection() {
             id="details-card"
             className="rounded-lg border border-gray-200 bg-white p-6 shadow-[0_0_15px_2px_rgba(0,0,0,0.2)] dark:border-gray-800 dark:bg-gray-900"
           >
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col lg:flex-row items-center justify-between">
               {/* Title + subtitle */}
               <div className="mb-4">
                 {editMode ? (
@@ -193,7 +193,7 @@ export default function HorseSection() {
               </div>
 
               {/* Actions row */}
-              <div className="mb-4 flex justify-end gap-2">
+              <div className="mb-4 flex flex-col md:flex-row justify-end gap-2">
                 <button
                   onClick={() => setOpen(true)}
                   type="button"
@@ -284,7 +284,7 @@ export default function HorseSection() {
                     )}
                   </div>
                   {/* Image */}
-                  <div className="w-64">
+                  <div className="lg:w-64">
                     <img
                       src={selectedHorse.img}
                       alt={selectedHorse.name}

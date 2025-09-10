@@ -27,9 +27,9 @@ export default function Table({ rows = [] }) {
         Horses Movements
       </h3>
 
-      <div className="overflow-x-auto rounded-xl ring-1 ring-main dark:ring-gray-700">
+      <div className="w-full overflow-x-auto overflow-y-hidden rounded-xl ring-1 ring-main dark:ring-gray-700">
         <table
-          className="w-full text-sm !border-separate dark:text-gray-300"
+          className="w-full text-sm !border-separate whitespace-nowrap dark:text-gray-300"
           style={{ borderCollapse: "separate", borderSpacing: 0 }}
         >
           <thead>
@@ -46,7 +46,7 @@ export default function Table({ rows = [] }) {
               ].map((h) => (
                 <th
                   key={h}
-                  className="border-white px-4 py-3 text-left font-semibold !border-l first:!border-l-0 dark:border-gray-900"
+                  className="border-white px-4 py-3 text-left font-semibold whitespace-nowrap !border-l first:!border-l-0 dark:border-gray-900"
                 >
                   {h}
                 </th>
@@ -81,7 +81,7 @@ export default function Table({ rows = [] }) {
                   ].map((val, idx) => (
                     <td
                       key={idx}
-                      className={`border-t border-l first:border-l-0 px-4 py-3 ${cellBorderClass}`}
+                      className={`border-t border-l first:border-l-0 px-4 py-3 whitespace-nowrap ${cellBorderClass}`}
                     >
                       {val}
                     </td>

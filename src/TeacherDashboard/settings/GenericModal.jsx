@@ -46,17 +46,15 @@ const GenericModal = ({ isOpen, onClose, onSave, items, title, fields }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-60 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-900 dark:text-gray-100 rounded-lg shadow-xl w-full max-w-7xl">
+      <div className="bg-white dark:bg-gray-900 dark:text-gray-100 rounded-lg shadow-xl w-full max-h-[90vh] overflow-auto max-w-xs sm:max-w-xl md:max-w-3xl lg:max-w-5xl">
         <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
           <h2 className="text-2xl font-bold text-main">{title}</h2>
           <button
-            onClick={handleClose}
-            className="text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-200"
-            aria-label="Close"
+          onClick={handleClose}
+          className="rounded-md px-2 py-1 text-gray-500 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+          aria-label="Close"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
+          ✕
           </button>
         </div>
 
