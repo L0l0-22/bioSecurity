@@ -9,11 +9,13 @@ import Notifications from './TeacherDashboard/notification/Notification';
 import CheckPoint from './TeacherDashboard/check/CheckPoint';
 import Settings from './TeacherDashboard/settings/Settings';
 import Profile from './TeacherDashboard/profile/Profile';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <div className="font-poppins">
       <ToastContainer position="top-right" autoClose={5000} />
+      <ScrollToTop/>
       <Routes>
         <Route path="/" element={<TeacherDash />}>
           <Route index element={<Dashboard />} />         {/* / */}

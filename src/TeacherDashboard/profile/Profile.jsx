@@ -174,7 +174,7 @@ export default function Profile() {
                     name="fullName"
                     value={form.fullName}
                     onChange={onChange}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                    className="w-full bg-transparent outline-none placeholder:text-gray-600 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                   />
                 </label>
                 <label className="block text-sm">
@@ -183,7 +183,7 @@ export default function Profile() {
                     name="email"
                     value={form.email}
                     onChange={onChange}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                    className="w-full bg-transparent outline-none placeholder:text-gray-600 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                   />
                 </label>
                 <label className="block text-sm">
@@ -192,7 +192,7 @@ export default function Profile() {
                     name="mobile"
                     value={form.mobile}
                     onChange={onChange}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                    className="w-full bg-transparent outline-none placeholder:text-gray-600 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                   />
                 </label>
                 <label className="block text-sm">
@@ -201,7 +201,7 @@ export default function Profile() {
                     name="company"
                     value={form.company}
                     onChange={onChange}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                    className="w-full bg-transparent outline-none placeholder:text-gray-600 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                   />
                 </label>
                 <label className="block text-sm">
@@ -210,7 +210,7 @@ export default function Profile() {
                     name="country"
                     value={form.country}
                     onChange={onChange}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                    className="w-full bg-transparent outline-none placeholder:text-gray-600 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                   />
                 </label>
                 <label className="block text-sm">
@@ -219,7 +219,7 @@ export default function Profile() {
                     name="address"
                     value={form.address}
                     onChange={onChange}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                    className="w-full bg-transparent outline-none placeholder:text-gray-600 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                   />
                 </label>
                 <label className="block text-sm">
@@ -228,7 +228,7 @@ export default function Profile() {
                     name="profession"
                     value={form.profession}
                     onChange={onChange}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                    className="w-full bg-transparent outline-none placeholder:text-gray-600 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                   />
                 </label>
                 <label className="block text-sm">
@@ -237,7 +237,7 @@ export default function Profile() {
                     name="tel"
                     value={form.tel}
                     onChange={onChange}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                    className="w-full bg-transparent outline-none placeholder:text-gray-600 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                   />
                 </label>
                 <label className="block text-sm">
@@ -246,7 +246,7 @@ export default function Profile() {
                     name="taxNo"
                     value={form.taxNo}
                     onChange={onChange}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                    className="w-full bg-transparent outline-none placeholder:text-gray-600 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                   />
                 </label>
               </div>
@@ -286,7 +286,7 @@ export default function Profile() {
                   name="passportNo"
                   value={form.passportNo}
                   onChange={onChange}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                  className="w-full bg-transparent outline-none placeholder:text-gray-600 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                 />
               </label>
               <label className="block text-sm">
@@ -296,7 +296,7 @@ export default function Profile() {
                   name="passportExpiry"
                   value={form.passportExpiry === "----" ? "" : form.passportExpiry}
                   onChange={onChange}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:[color-scheme:dark] dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                  className="w-full bg-transparent outline-none placeholder:text-gray-600 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:[color-scheme:dark] dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                 />
               </label>
               <label className="block text-sm">
@@ -305,7 +305,7 @@ export default function Profile() {
                   name="whatsapp"
                   value={form.whatsapp}
                   onChange={onChange}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                  className="w-full bg-transparent outline-none placeholder:text-gray-600 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                 />
               </label>
               <label className="block text-sm">
@@ -314,7 +314,7 @@ export default function Profile() {
                   name="idNo"
                   value={form.idNo}
                   onChange={onChange}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                  className="w-full bg-transparent outline-none placeholder:text-gray-600 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                 />
               </label>
               <label className="block text-sm">
@@ -324,7 +324,7 @@ export default function Profile() {
                   name="idExpiry"
                   value={form.idExpiry === "----" ? "" : form.idExpiry}
                   onChange={onChange}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:[color-scheme:dark] dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                  className="w-full bg-transparent outline-none placeholder:text-gray-600 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:[color-scheme:dark] dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                 />
               </label>
               <label className="block text-sm">
@@ -333,7 +333,7 @@ export default function Profile() {
                   name="equinaPoints"
                   value={form.equinaPoints}
                   onChange={onChange}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                  className="w-full bg-transparent outline-none placeholder:text-gray-600 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                 />
               </label>
             </div>
@@ -351,7 +351,7 @@ export default function Profile() {
                   name="userType"
                   value={form.userType}
                   onChange={onChange}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                  className="w-full bg-transparent outline-none placeholder:text-gray-600 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                 />
               </label>
             </div>

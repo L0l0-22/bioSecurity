@@ -168,7 +168,7 @@ export default function Header({ onToggleSidebar }) {
               id="searchSuggest"
               ref={listRef}
               role="listbox"
-              className={`absolute left-0 right-0 mt-2 max-h-56 overflow-auto rounded-xl border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-900 ${
+              className={`absolute z-20 left-0 right-0 mt-2 max-h-56 overflow-auto rounded-xl border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-900 ${
                 openSearch && items.length > 0 ? "block" : "hidden"
               }`}
             >
@@ -246,13 +246,13 @@ export default function Header({ onToggleSidebar }) {
                 openUser ? "block" : "hidden"
               }`}
             >
-              <Link to="/profile" className="block px-3 py-2 text-sm hover:bg-purple-50 dark:hover:bg-gray-800">
+              <Link to="/profile" onClick={() => setOpenUser(false)} className="block px-3 py-2 text-sm hover:bg-purple-50 dark:hover:bg-gray-800">
                 View Profile
               </Link>
-              <Link to="/settings" className="block px-3 py-2 text-sm hover:bg-purple-50 dark:hover:bg-gray-800">
+              <Link to="/settings" onClick={() => setOpenUser(false)} className="block px-3 py-2 text-sm hover:bg-purple-50 dark:hover:bg-gray-800">
                 Setting
               </Link>
-              <Link className="block px-3 py-2 text-sm hover:bg-red-100 dark:hover:bg-red-600">
+              <Link onClick={() => setOpenUser(false)} className="block px-3 py-2 text-sm hover:bg-red-100 dark:hover:bg-red-600">
                 Logout
               </Link>
             </div>
