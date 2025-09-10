@@ -72,7 +72,7 @@ export default function AddModal({ open, onClose, onSubmit }) {
               </label>
               <input
                 type={field === "date" ? "date" : field === "time" ? "time" : "text"}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 outline-none focus:border-main dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder-gray-500"
+                className="w-full bg-transparent placeholder:text-gray-600 rounded-md border border-gray-300 px-3 py-2 outline-none focus:border-main dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder-gray-500"
                 value={form[field]}
                 onChange={(e) => handleChange(field, e.target.value)}
                 placeholder={`Enter ${field}`}

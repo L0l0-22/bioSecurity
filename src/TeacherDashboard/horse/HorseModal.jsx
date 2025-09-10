@@ -74,7 +74,7 @@ return (
                     type="file"
                     id="horseImage"
                     accept="image/*"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     onChange={(e) => {
                         const file = e.target.files[0];
                         if (file) {
@@ -108,7 +108,7 @@ return (
                     <input
                     type="text"
                     placeholder="e.g. 12345"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -119,7 +119,7 @@ return (
                     type="text"
                     placeholder="jack"
                     required
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -129,7 +129,7 @@ return (
                     <input
                     type="text"
                     placeholder="e.g. Arabian"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -139,7 +139,7 @@ return (
                     <input
                     type="number"
                     placeholder="5"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -159,7 +159,7 @@ return (
                     <input
                     type="text"
                     placeholder="white"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -169,7 +169,7 @@ return (
                     <input
                     type="text"
                     placeholder="e.g. John Smith"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -179,7 +179,7 @@ return (
                     <input
                     type="text"
                     placeholder="e.g. Jumping"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -189,7 +189,7 @@ return (
                     <input
                     type="text"
                     placeholder="e.g. Intermediate"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -199,7 +199,7 @@ return (
                     <input
                     type="number"
                     placeholder="e.g. 3"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -208,7 +208,7 @@ return (
                     <label className="block font-medium mb-1">Deworming Date</label>
                     <input
                     type="date"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
                 </div>
@@ -240,7 +240,7 @@ return (
                     <input
                     type="text"
                     placeholder="e.g. 12345"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -250,7 +250,7 @@ return (
                     <input
                     type="text"
                     placeholder="e.g. 12345"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -260,7 +260,7 @@ return (
                     <input
                     type="text"
                     placeholder="e.g. 12345"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -270,7 +270,7 @@ return (
                     <input
                     type="text"
                     placeholder="e.g. 12345"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -279,7 +279,7 @@ return (
                     <label className="block font-medium mb-1">Passport Expiry</label>
                     <input
                     type="date"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -289,7 +289,7 @@ return (
                     <input
                     type="text"
                     placeholder="e.g. FEI"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -299,7 +299,7 @@ return (
                     <input
                     type="text"
                     placeholder="e.g. John Smith"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -309,7 +309,7 @@ return (
                     <input
                     type="text"
                     placeholder="e.g. Jane Doe"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -319,7 +319,7 @@ return (
                     <input
                     type="text"
                     placeholder="e.g. Mark Rider"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -329,7 +329,7 @@ return (
                     <input
                     type="text"
                     placeholder="e.g. Dr. Vet"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -339,7 +339,7 @@ return (
                     <input
                     type="number"
                     placeholder="e.g. 160"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -349,7 +349,7 @@ return (
                     <input
                     type="number"
                     placeholder="e.g. 450"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
                 </div>
@@ -381,7 +381,7 @@ return (
                     <input
                     type="number"
                     placeholder="e.g. 12345"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -391,7 +391,7 @@ return (
                     <input
                     type="number"
                     placeholder="e.g. 12345"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
 
@@ -401,7 +401,7 @@ return (
                     <input
                     type="number"
                     placeholder="e.g. 12345"
-                    className="w-full border rounded-lg p-2"
+                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
                 </div>
@@ -426,7 +426,7 @@ return (
                 <textarea
                 placeholder="e.g. 12345"
                 rows="3"
-                className="w-full border rounded-lg p-2"
+                className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                 ></textarea>
             </div>
             )}

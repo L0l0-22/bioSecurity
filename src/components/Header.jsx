@@ -125,7 +125,7 @@ export default function Header({ onToggleSidebar }) {
   }, []);
 
   return (
-    <header className="fixed top-0 right-0 left-0 z-30 border-b border-gray-200 bg-gray-100 backdrop-blur dark:border-gray-800 dark:bg-gray-950/70">
+    <header className="fixed top-0 right-0 left-0 z-30 lg:z-[60] border-b border-gray-200 bg-gray-100 backdrop-blur dark:border-gray-800 dark:bg-gray-950/70">
       <div className="mx-auto flex lg:flex-row flex-col lg:items-center justify-between gap-4 p-4">
         {/* left */}
         <div className="flex flex-col md:flex-row items-center gap-4">
