@@ -52,7 +52,7 @@ const Notifications = () => {
       <h6 className="title-2 mb-3 dark:text-gray-100">Alerts Summary</h6>
 
       {/* Filters */}
-      <div className="filters flex flex-col gap-5 sm:flex-row justify-between items-center">
+      <div className="filters flex justify-between items-center">
         <ul className="nav filter-tabs flex gap-2">
           <li>
             <button

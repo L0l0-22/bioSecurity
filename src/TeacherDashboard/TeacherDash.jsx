@@ -24,12 +24,18 @@ export default function TeacherDash() {
     <div className="flex min-h-screen overflow-hidden bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
       {/* Header */}
       <div>
-        <Header onToggleSidebar={() => setSidebarOpen(sidebarOpen ? false : true)} />
+        <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+          {sidebarOpen && (
+            <div
+              className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+              onClick={() => setSidebarOpen(false)}
+            />
+          )}
       </div>
       {/* Sidebar */}
       <aside
         className={`
-          fixed top-0 left-0 z-40 min-h-screen h-full w-32 pt-64 md:pt-44 lg:pt-32 overflow-y-auto
+          fixed top-0 left-0 z-50 min-h-screen h-full w-56 lg:w-32 pt-20 lg:pt-32 overflow-y-auto
           bg-gray-100 border-r border-gray-200
           dark:bg-gray-900 dark:border-gray-800
           flex flex-col items-center py-6 
@@ -38,6 +44,13 @@ export default function TeacherDash() {
           lg:translate-x-0
         `}
       >
+        <button
+            onClick={() => setSidebarOpen(false)}
+            className="absolute top-4 right-4 lg:hidden rounded-md text-xl py-1 text-gray-500 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+            aria-label="Close sidebar"
+          >
+            ✕
+          </button>
         <ul className="flex-1 flex flex-col items-center font-medium w-full text-gray-600 dark:text-gray-300">
           {items.map((item) => (
             <li key={item.to} className="w-full">

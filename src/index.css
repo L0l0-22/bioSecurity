@@ -115,10 +115,8 @@ html[dir="ltr"] {
 .title-2 {
 
 	font-size: 30px;
-		margin-top: 0.8rem;
-
+	margin-top: 0.8rem;
 	padding-bottom: 1rem;
-	padding-left: 1rem;
 }
 
   .modal {
@@ -570,7 +568,7 @@ body.dark .notification-card {
     background-color: #f8f9fa; /* light background */
     border: 1px solid #dee2e6;
     border-radius: 6px;
-    padding: 6px 14px;
+    padding: 6px 10px;
     color: #333;
     font-weight: 500;
     cursor: pointer;
@@ -590,7 +588,7 @@ body.dark .notification-card {
     background-color: #2EB4CC;
     color: #fff;
     border: none;
-    padding: 6px 12px;
+    padding: 6px ;
     border-radius: 6px;
     cursor: pointer;
     font-weight: 500;

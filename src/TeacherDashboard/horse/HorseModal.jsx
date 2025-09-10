@@ -39,7 +39,7 @@ return (
         </h2>
         <button
         onClick={closeModal}
-        className="rounded-md px-2 py-1 text-gray-500 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+        className="rounded-md px-2 py-1 text-gray-500 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 text-xl"
         aria-label="Close"
         >
         ✕
