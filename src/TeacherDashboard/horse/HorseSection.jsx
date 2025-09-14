@@ -304,23 +304,23 @@ export default function HorseSection() {
                   Horse Data
                 </h3>
               </div>
-              <div className="p-4">
-                <div className="grid grid-cols-1 gap-4 px-6 md:grid-cols-3">
+              <div className="p-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div className="md:col-span-2 grid grid-cols-1 gap-y-6 md:grid-cols-2">
                   {/* Column 1 */}
                   <div className="space-y-2">
                     {editMode ? (
                       <>
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Horse No" />
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Breeder" />
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Training For" />
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Offspring No" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.horseNo} onChange={(e)=>setEditedHorse({...editedHorse, horseNo:e.target.value})} placeholder="Horse No" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.breederName} onChange={(e)=>setEditedHorse({...editedHorse, breederName:e.target.value})} placeholder="Breeder" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.trainingFor} onChange={(e)=>setEditedHorse({...editedHorse, trainingFor:e.target.value})} placeholder="Training For" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.offspringNo} onChange={(e)=>setEditedHorse({...editedHorse, offspringNo:e.target.value})} placeholder="Offspring No" />
                       </>
                     ) : (
                       <>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">Horse No: ----</p>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">Breeder: ----</p>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">Training For: ----</p>
-                        <p className="text-gray-700 dark:text-gray-300">Offspring No: ----</p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300"> <span className="font-semibold">Horse No:</span>  {selectedHorse.horseNo}</p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300"> <span className="font-semibold">Breeder:</span> {selectedHorse.breederName}</p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300"><span className="font-semibold">Training For:</span> {selectedHorse.trainingFor}</p>
+                        <p className="text-gray-700 dark:text-gray-300"><span className="font-semibold">Offspring No:</span> {selectedHorse.offspringNo}</p>
                       </>
                     )}
                   </div>
@@ -328,26 +328,28 @@ export default function HorseSection() {
                   <div className="space-y-2">
                     {editMode ? (
                       <>
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Color" />
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Breed" />
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Training Level" />
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Deworming Data" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.color} onChange={(e)=>setEditedHorse({...editedHorse, color:e.target.value})} placeholder="Color" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.breed} onChange={(e)=>setEditedHorse({...editedHorse, breed:e.target.value})} placeholder="Breed" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.trainingLevel} onChange={(e)=>setEditedHorse({...editedHorse, trainingLevel:e.target.value})} placeholder="Training Level" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.dewormingData} onChange={(e)=>setEditedHorse({...editedHorse, dewormingData:e.target.value})} placeholder="Deworming Data" />
                       </>
                     ) : (
                       <>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">Color: ----</p>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">Breed: ----</p>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">Training Level: ----</p>
-                        <p className="text-gray-700 dark:text-gray-300">Deworming Data: ----</p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300"><span className="font-semibold">Color:</span> {selectedHorse.color} </p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300"><span className="font-semibold">Breed:</span> {selectedHorse.breed} </p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300"><span className="font-semibold">Training Level:</span> {selectedHorse.trainingLevel} </p>
+                        <p className="text-gray-700 dark:text-gray-300"><span className="font-semibold">Deworming Data:</span> {selectedHorse.dewormingData} </p>
                       </>
                     )}
                   </div>
+                  </div>
                   {/* Image */}
-                  <div className="lg:w-64">
+                  <div className="flex items-start justify-end pr-5">
                     <img
                       src={selectedHorse.img}
                       alt={selectedHorse.name}
-                      className="h-auto w-full rounded-lg shadow-md"
+                      className="h-44 rounded-lg shadow-md"
+                      onError={(e) => { e.currentTarget.src = horseFallback; }}
                     />
                     {editMode && (
                       <input
@@ -357,7 +359,6 @@ export default function HorseSection() {
                       />
                     )}
                   </div>
-                </div>
               </div>
             </div>
 
@@ -373,26 +374,26 @@ export default function HorseSection() {
                   <div className="space-y-2">
                     {editMode ? (
                       <>
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Microchip" />
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Passport No" />
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Horse Owner" />
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Vet" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.microchip} onChange={(e)=>setEditedHorse({...editedHorse, microchip:e.target.value})} placeholder="Microchip" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.passportNo} onChange={(e)=>setEditedHorse({...editedHorse, passportNo:e.target.value})} placeholder="Passport No" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.ownerName} onChange={(e)=>setEditedHorse({...editedHorse, ownerName:e.target.value})} placeholder="Horse Owner" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.vetName} onChange={(e)=>setEditedHorse({...editedHorse, vetName:e.target.value})} placeholder="Vet" />
                       </>
                     ) : (
                       <>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">Microchip: ----</p>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">Passport No: ----</p>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">Horse Owner: ----</p>
-                        <p className="text-gray-700 dark:text-gray-300">Vet: ----</p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300"><span className="font-semibold">Microchip:</span> {selectedHorse.microchip}</p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300"><span className="font-semibold">Passport No:</span> {selectedHorse.passportNo}</p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300"><span className="font-semibold">Horse Owner:</span> {selectedHorse.ownerName}</p>
+                        <p className="text-gray-700 dark:text-gray-300"><span className="font-semibold">Vet:</span> {selectedHorse.vetName}</p>
                       </>
                     )}
                   </div>
                   <div className="space-y-2">
                     {editMode ? (
                       <>
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="UELN" />
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Passport Expiry Date" />
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Trainer" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.ueln} onChange={(e)=>setEditedHorse({...editedHorse, ueln:e.target.value})} placeholder="UELN" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.passportExpiryDate} onChange={(e)=>setEditedHorse({...editedHorse, passportExpiryDate:e.target.value})} placeholder="Passport Expiry Date" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.trainerName} onChange={(e)=>setEditedHorse({...editedHorse, trainerName:e.target.value})} placeholder="Trainer" />
                         <input
                           type="text"
                           value={editedHorse.heightCm}
@@ -405,13 +406,13 @@ export default function HorseSection() {
                       </>
                     ) : (
                       <>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">UELN: ----</p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300"><span className="font-semibold">UELN:</span> {selectedHorse.ueln}</p>
                         <p className="mb-2 text-gray-700 dark:text-gray-300">
-                          Passport Expiry Date: ----
+                          <span className="font-semibold">Passport Expiry Date:</span> {selectedHorse.passportExpiryDate}
                         </p>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">Trainer: ----</p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300"><span className="font-semibold">Trainer:</span> {selectedHorse.trainerName}</p>
                         <p className="text-gray-700 dark:text-gray-300">
-                          Height: {selectedHorse.heightCm} cm
+                          <span className="font-semibold">Height:</span> {selectedHorse.heightCm} cm
                         </p>
                       </>
                     )}
@@ -419,9 +420,9 @@ export default function HorseSection() {
                   <div className="space-y-2">
                     {editMode ? (
                       <>
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="FEI No" />
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Association" />
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Rider" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.feiNo} onChange={(e)=>setEditedHorse({...editedHorse, feiNo:e.target.value})} placeholder="FEI No" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.association} onChange={(e)=>setEditedHorse({...editedHorse, association:e.target.value})} placeholder="Association" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.riderName} onChange={(e)=>setEditedHorse({...editedHorse, riderName:e.target.value})} placeholder="Rider" />
                         <input
                           type="text"
                           value={editedHorse.weightKg}
@@ -434,9 +435,9 @@ export default function HorseSection() {
                       </>
                     ) : (
                       <>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">FEI No: ----</p>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">Association: ----</p>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">Rider: ----</p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300"><span className="font-semibold">FEI No:</span> {selectedHorse.feiNo}</p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300"><span className="font-semibold">Association:</span> {selectedHorse.association}</p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300"><span className="font-semibold">Rider:</span> {selectedHorse.riderName}</p>
                         <p className="text-gray-700 dark:text-gray-300">
                           Weight: {selectedHorse.weightKg} Kg
                         </p>
@@ -459,26 +460,26 @@ export default function HorseSection() {
                   <div className="space-y-2">
                     {editMode ? (
                       <>
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Purchase Price" />
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="DNA" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.purchasePrice} onChange={(e)=>setEditedHorse({...editedHorse, purchasePrice:e.target.value})} placeholder="Purchase Price" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.dna} onChange={(e)=>setEditedHorse({...editedHorse, dna:e.target.value})} placeholder="DNA" />
                       </>
                     ) : (
                       <>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">Purchase Price: 0 AED</p>
-                        <p className="text-gray-700 dark:text-gray-300">DNA: ----</p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300"><span className="font-semibold">Purchase Price:</span> {selectedHorse.currencyCode}</p>
+                        <p className="text-gray-700 dark:text-gray-300"><span className="font-semibold">DNA:</span> {selectedHorse.dna}</p>
                       </>
                     )}
                   </div>
                   <div className="space-y-2">
                     {editMode ? (
                       <>
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Offered Price" />
-                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Comments" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.offeredPrice} onChange={(e)=>setEditedHorse({...editedHorse, offeredPrice:e.target.value})} placeholder="Offered Price" />
+                        <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" value={editedHorse.comments} onChange={(e)=>setEditedHorse({...editedHorse, comments:e.target.value})} placeholder="Comments" />
                       </>
                     ) : (
                       <>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">Offered Price: 0 AED</p>
-                        <p className="text-gray-700 dark:text-gray-300">Comments: ----</p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300"><span className="font-semibold">Offered Price:</span> {selectedHorse.offeredPrice} {selectedHorse.currencyCode}</p>
+                        <p className="text-gray-700 dark:text-gray-300"><span className="font-semibold">Comments:</span> {selectedHorse.comments}</p>
                       </>
                     )}
                   </div>
@@ -486,7 +487,7 @@ export default function HorseSection() {
                     {editMode ? (
                       <input className="w-full rounded border border-gray-300 p-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" placeholder="Sold Price" />
                     ) : (
-                      <p className="text-gray-700 dark:text-gray-300">Sold Price: 0 AED</p>
+                      <p className="text-gray-700 dark:text-gray-300"><span className="font-semibold">Sold Price:</span> 0 AED</p>
                     )}
                   </div>
                 </div>
