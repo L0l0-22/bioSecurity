@@ -27,7 +27,7 @@ export default function Table({ rows = [] }) {
         Horses Movements
       </h3>
 
-      <div className="w-full overflow-x-auto overflow-y-hidden rounded-xl ring-1 ring-main dark:ring-gray-700">
+      <div className="w-full overflow-x-auto overflow-y-hidden rounded-xl ring-1 ring-gray-300 dark:ring-gray-700">
         <table
           className="w-full text-sm !border-separate whitespace-nowrap dark:text-gray-300"
           style={{ borderCollapse: "separate", borderSpacing: 0 }}

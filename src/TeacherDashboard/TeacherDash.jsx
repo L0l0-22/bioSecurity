@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { MdMenu } from 'react-icons/md';
-import { NavLink, Outlet } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import icon1 from "../assets/images/icon/business.png";
 import icon2 from "../assets/images/icon/horse2.png";
@@ -11,6 +10,17 @@ import Header from '../components/Header';
 
 export default function TeacherDash() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Redirect to /dashboard when landing on the parent route (e.g., after refresh)
+  useEffect(() => {
+    // Adjust these to your actual parent path(s)
+    const parentPaths = ['/', '/teacher'];
+    if (parentPaths.includes(location.pathname)) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [location.pathname, navigate]);
 
   const items = [
     { label: 'Dashboard', to: '/dashboard', icon: icon1 },
@@ -25,13 +35,14 @@ export default function TeacherDash() {
       {/* Header */}
       <div>
         <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
-          {sidebarOpen && (
-            <div
-              className="fixed inset-0 z-40 bg-black/50 lg:hidden"
-              onClick={() => setSidebarOpen(false)}
-            />
-          )}
+        {sidebarOpen && (
+          <div
+            className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
       </div>
+
       {/* Sidebar */}
       <aside
         className={`
@@ -45,17 +56,19 @@ export default function TeacherDash() {
         `}
       >
         <button
-            onClick={() => setSidebarOpen(false)}
-            className="absolute top-4 right-4 lg:hidden rounded-md text-xl py-1 text-gray-500 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
-            aria-label="Close sidebar"
-          >
-            ✕
-          </button>
+          onClick={() => setSidebarOpen(false)}
+          className="absolute top-4 right-4 lg:hidden rounded-md text-xl py-1 text-gray-500 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+          aria-label="Close sidebar"
+        >
+          ✕
+        </button>
+
         <ul className="flex-1 flex flex-col items-center font-medium w-full text-gray-600 dark:text-gray-300">
           {items.map((item) => (
             <li key={item.to} className="w-full">
               <NavLink
                 to={item.to}
+                end={item.to === '/dashboard'} // exact match for the dashboard tab
                 onClick={() => { if (window.innerWidth < 1024) setSidebarOpen(false); }}
                 className={({ isActive }) =>
                   [

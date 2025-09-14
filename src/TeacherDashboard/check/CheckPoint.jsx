@@ -29,8 +29,8 @@ export default function CheckPoint() {
   };
   return (
     <div className='px-4'>
-        <div className="add-horse-btn-section mb-12 flex flex-col md:flex-row items-center justify-between ">
-                <h6 className="title-1 text-xl font-semibold text-gray-900 dark:text-gray-100">
+        <div className="add-horse-btn-section mb-5 flex flex-col md:flex-row items-center justify-between ">
+                <h6 className="title-2 dark:text-gray-100">
                   Check Point
                 </h6>
                 <button

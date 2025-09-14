@@ -1,10 +1,11 @@
 // HorseSection.jsx
-import React, { useEffect, useMemo, useState, useCallback } from "react";
-import horse1 from "../../assets/images/horses/horse33.jpeg";
-import horse2 from "../../assets/images/horses/horse55.jpg";
+import React, { useEffect, useState, useCallback } from "react";
+import horseFallback from "../../assets/images/horses/horse33.jpeg";
 import HorseModal from "./HorseModal";
 import { IoMdAdd } from "react-icons/io";
 import AddModal from "../check/AddModal";
+import axios from "axios";
+import Loader from "../../components/Loader";
 
 export default function HorseSection() {
   const [view, setView] = useState("list"); // 'list' | 'details'
@@ -18,18 +19,72 @@ export default function HorseSection() {
     notes: true,
   });
 
-  const horses = useMemo(
-    () => [
-      { name: "Horse Name 1", age: 9, gender: "Male", img: horse1, heightCm: 123, weightKg: 111 },
-      { name: "Horse Name 1", age: 9, gender: "Male", img: horse2, heightCm: 123, weightKg: 111 },
-      { name: "Horse Name 1", age: 9, gender: "Male", img: horse1, heightCm: 123, weightKg: 111 },
-      { name: "Horse Name 1", age: 9, gender: "Male", img: horse2, heightCm: 123, weightKg: 111 },
-      { name: "Horse Name 1", age: 9, gender: "Male", img: horse1, heightCm: 123, weightKg: 111 },
-      { name: "Horse Name 1", age: 9, gender: "Male", img: horse2, heightCm: 123, weightKg: 111 },
-      { name: "Horse Name 2", age: 7, gender: "Female", img: horse2, heightCm: 123, weightKg: 111 },
-    ],
-    []
-  );
+  // const horses = useMemo(
+  //   () => [
+  //     { name: "Horse Name 1", age: 9, gender: "Male", img: horse1, heightCm: 123, weightKg: 111 },
+  //     { name: "Horse Name 1", age: 9, gender: "Male", img: horse2, heightCm: 123, weightKg: 111 },
+  //     { name: "Horse Name 1", age: 9, gender: "Male", img: horse1, heightCm: 123, weightKg: 111 },
+  //     { name: "Horse Name 1", age: 9, gender: "Male", img: horse2, heightCm: 123, weightKg: 111 },
+  //     { name: "Horse Name 1", age: 9, gender: "Male", img: horse1, heightCm: 123, weightKg: 111 },
+  //     { name: "Horse Name 1", age: 9, gender: "Male", img: horse2, heightCm: 123, weightKg: 111 },
+  //     { name: "Horse Name 2", age: 7, gender: "Female", img: horse2, heightCm: 123, weightKg: 111 },
+  //   ],
+  //   []
+  // );
+  const [horses, setHorses] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const API_BASE = "http://bioapis.gosmart.eg/api";
+  useEffect(() => {
+    const fetchHorses = async () => {
+    console.log("[HorseSection] Fetching horses...");
+    setLoading(true);
+    setError("");
+    try {
+      const res = await axios.get(`${API_BASE}/horses`);
+        console.log("[HorseSection] Fetch success:", res?.data);
+        const list = res?.data?.items || [];
+        const mapped = list.map((h) => ({
+           id: h.id,
+           name: h.name ?? "—",
+           horseNo: h.horse_no ?? "—",
+           breederName: h.breeder_name ?? "—",
+           trainingFor: h.training_for ?? "—",
+           offspringNo: h.offspring_no ?? "—",
+           color: h.color ?? "—",
+           breed: h.breed ?? "—",
+           trainingLevel: h.training_level ?? "—",
+           dewormingData: h.deworming_data ?? "—",
+           microchip: h.microchip ?? "—",
+           passportNo: h.passport_no ?? "—",
+           ownerName: h.owner_name ?? "—",
+           vetName: h.vet_name ?? "—",
+           ueln: h.ueln ?? "—",
+           passportExpiryDate: h.passport_expiry_date ?? "",
+           trainerName: h.trainer_name ?? "—",
+           heightCm: h.height_cm ?? "—",
+           feiNo: h.fei_no ?? "—",
+           association: h.association ?? "—",
+           riderName: h.rider_name ?? "—",
+           weightKg: h.weight_kg ?? "—",
+           currencyCode: Array.isArray(h.currency_id) ? (h.currency_id[1] ?? "—") : (h.currency_id ?? "—"),
+           purchasePrice: h.purchase_price ?? "—",
+           offeredPrice: h.offered_price ?? "—",
+           dna: h.dna ?? "—",
+           comments: h.comments ?? "—",
+           img: h.image || horseFallback,
+         }));
+        setHorses(mapped);
+      } catch (err) {
+      console.error("[HorseSection] Fetch error:", err);
+      setError(err.message || "Failed to load horses");
+      } finally {
+      setLoading(false);
+      }
+    };
+    fetchHorses();
+  }, [API_BASE]);
 
   const [selectedHorse, setSelectedHorse] = useState(null);
 
@@ -104,8 +159,8 @@ export default function HorseSection() {
   return (
     <section id="message" className="text-gray-900 dark:text-gray-100">
       {/* Header with Add button */}
-      <div className="add-horse-btn-section mb-12 flex items-center justify-between">
-        <h6 className="title-1 text-xl font-semibold text-gray-900 dark:text-gray-100">
+      <div className="add-horse-btn-section mb-5 flex items-center justify-between">
+        <h6 className="title-2 dark:text-gray-100">
           Horse Details
         </h6>
         <button
@@ -119,6 +174,9 @@ export default function HorseSection() {
 
       {/* ================= LIST VIEW ================= */}
       {view === "list" && (
+        <>
+        {loading && <Loader/>}
+        {error && <p className="text-red-500 dark:text-red-400">{error}</p>}
         <div id="horse-list" className="flexing-horses cursor-pointer">
           {horses.map((h, i) => (
             <div
@@ -127,7 +185,7 @@ export default function HorseSection() {
               onClick={() => showDetails(h)}
             >
               <div className="horse-img-container">
-                <img src={h.img} alt={h.name} />
+                <img src={h.img} alt={h.name} onError={(e)=>{e.currentTarget.src = horseFallback;}} />
               </div>
               <div className="bottom-sec text-gray-800 dark:text-gray-200">
                 <h5 className="dark:text-gray-100">{h.name}</h5>
@@ -138,6 +196,7 @@ export default function HorseSection() {
             </div>
           ))}
         </div>
+        </>
       )}
 
       {/* ================ DETAILS VIEW ================ */}
@@ -148,7 +207,7 @@ export default function HorseSection() {
             className="rounded-lg border border-gray-200 bg-white p-6 shadow-[0_0_15px_2px_rgba(0,0,0,0.2)] dark:border-gray-800 dark:bg-gray-900"
           >
             <div className="flex flex-col lg:flex-row items-center justify-between">
-              {/* Title + subtitle */}
+              {/* Title  subtitle */}
               <div className="mb-4">
                 {editMode ? (
                   <div className="space-y-2">
@@ -448,7 +507,7 @@ export default function HorseSection() {
         </div>
       )}
 
-      {/* --------------- Add Horse Modal --------------- */}
+      {/* --------------Add Horse Modal --------------- */}
       <HorseModal
         isOpen={isOpen}
         closeModal={closeModal}
