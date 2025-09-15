@@ -252,7 +252,7 @@ export default function Header({ onToggleSidebar }) {
               <Link to="/settings" onClick={() => setOpenUser(false)} className="block px-3 py-2 text-sm hover:bg-purple-50 dark:hover:bg-gray-800">
                 Setting
               </Link>
-              <Link onClick={() => setOpenUser(false)} className="block px-3 py-2 text-sm hover:bg-red-100 dark:hover:bg-red-600">
+              <Link to="/login" onClick={() => setOpenUser(false)} className="block px-3 py-2 text-sm hover:bg-red-100 dark:hover:bg-red-600">
                 Logout
               </Link>
             </div>

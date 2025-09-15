@@ -103,7 +103,7 @@ html[dir="ltr"] {
 .add-horse-btn {
 
 	margin: 1rem;
-	background-color: #6256a9;
+	background-color: #6F31A0;
 }
 
 .title-1 {
@@ -183,7 +183,7 @@ body.modal-open {
 .modal-header h2 {
 	margin: 0;
 	font-size: 1.8rem;
-	color: #6256a9;
+	color: #6F31A0;
 	font-weight: 700;
 }
 
@@ -277,7 +277,7 @@ body.modal-open {
 
 body.dark .details-card {
 	background: -webkit-linear-gradient(90deg, #202226, #18191c);
-	border: 2px solid #6256a9;
+	border: 2px solid #6F31A0;
 	box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -303,7 +303,7 @@ body.dark .details-card {
 .details-header span {
 	margin: 10px 0;
 	font-size: 20px;
-	color: #6256a9;
+	color: #6F31A0;
 
 
 }
@@ -333,7 +333,7 @@ body.dark .accordion {
 	background-color: #202226;
 	color: white;
 	border: 1px solid #2a2f36;
-	/* dark mode border 6256a9 */
+	/* dark mode border 6F31A0 */
 }
 
 .accordion.active,
@@ -440,7 +440,7 @@ body.dark .accordion {
 
 body.dark .details-card {
 	background: -webkit-linear-gradient(90deg, #202226, #18191c);
-	border: 2px solid #6256a9;
+	border: 2px solid #6F31A0;
 	box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -466,7 +466,7 @@ body.dark .details-card {
 .details-header span {
 	margin: 10px 0;
 	font-size: 20px;
-	color: #6256a9;
+	color: #6F31A0;
 
 }
 /* modal override, load LAST */
@@ -511,7 +511,7 @@ body.dark .details-card {
 
 body.dark .notification-card {
 	background: -webkit-linear-gradient(90deg, #202226, #18191c);
-	border: 1px solid #6256a9;
+	border: 1px solid #6F31A0;
   }
   .notification-content {
     display: flex;
@@ -582,10 +582,10 @@ body.dark .notification-card {
 .filters .nav-link.active {
     background-color: rgb(98, 86, 169);
     color: #fff;
-    border-color: #6256a9;
+    border-color: #6F31A0;
 }
 #markAll {
-    background-color: #2EB4CC;
+    background-color: #00B2EF;
     color: #fff;
     border: none;
     padding: 6px ;
@@ -607,7 +607,7 @@ body.dark .notification-card {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	background: #2EB4CC;
+	background: #00B2EF;
 	color: white;
 	width: 50px;
 	height: 50px;

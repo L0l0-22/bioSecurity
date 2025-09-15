@@ -14,8 +14,8 @@ plugins: [
   theme: {
     extend: {
       colors: {
-        main: '#6256a9',
-        sec: "#2EB4CC" , 
+        main: '#6F31A0',
+        sec: "#00B2EF" , 
       },
     },
     fontFamily: {

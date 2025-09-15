@@ -1,135 +1,107 @@
 // HorseSection.jsx
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import horseFallback from "../../assets/images/horses/horse33.jpeg";
 import HorseModal from "./HorseModal";
 import { IoMdAdd } from "react-icons/io";
 import AddModal from "../check/AddModal";
 import axios from "axios";
 import Loader from "../../components/Loader";
+import ConfirmModal from "./ConfirmModal";
 
 export default function HorseSection() {
   const [view, setView] = useState("list"); // 'list' | 'details'
   const [isOpen, setIsOpen] = useState(false);
-  const [horseImagePreview, setHorseImagePreview] = useState("");
   const [open, setOpen] = useState(false);
-  const [accordions, setAccordions] = useState({
-    data: false,
-    reg: false,
-    pricing: false,
-    notes: true,
-  });
-
-  // const horses = useMemo(
-  //   () => [
-  //     { name: "Horse Name 1", age: 9, gender: "Male", img: horse1, heightCm: 123, weightKg: 111 },
-  //     { name: "Horse Name 1", age: 9, gender: "Male", img: horse2, heightCm: 123, weightKg: 111 },
-  //     { name: "Horse Name 1", age: 9, gender: "Male", img: horse1, heightCm: 123, weightKg: 111 },
-  //     { name: "Horse Name 1", age: 9, gender: "Male", img: horse2, heightCm: 123, weightKg: 111 },
-  //     { name: "Horse Name 1", age: 9, gender: "Male", img: horse1, heightCm: 123, weightKg: 111 },
-  //     { name: "Horse Name 1", age: 9, gender: "Male", img: horse2, heightCm: 123, weightKg: 111 },
-  //     { name: "Horse Name 2", age: 7, gender: "Female", img: horse2, heightCm: 123, weightKg: 111 },
-  //   ],
-  //   []
-  // );
   const [horses, setHorses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
-  const API_BASE = "http://bioapis.gosmart.eg/api";
-  useEffect(() => {
-    const fetchHorses = async () => {
-    console.log("[HorseSection] Fetching horses...");
-    setLoading(true);
-    setError("");
-    try {
-      const res = await axios.get(`${API_BASE}/horses`);
-        console.log("[HorseSection] Fetch success:", res?.data);
-        const list = res?.data?.items || [];
-        const mapped = list.map((h) => ({
-           id: h.id,
-           name: h.name ?? "—",
-           horseNo: h.horse_no ?? "—",
-           breederName: h.breeder_name ?? "—",
-           trainingFor: h.training_for ?? "—",
-           offspringNo: h.offspring_no ?? "—",
-           color: h.color ?? "—",
-           breed: h.breed ?? "—",
-           trainingLevel: h.training_level ?? "—",
-           dewormingData: h.deworming_data ?? "—",
-           microchip: h.microchip ?? "—",
-           passportNo: h.passport_no ?? "—",
-           ownerName: h.owner_name ?? "—",
-           vetName: h.vet_name ?? "—",
-           ueln: h.ueln ?? "—",
-           passportExpiryDate: h.passport_expiry_date ?? "",
-           trainerName: h.trainer_name ?? "—",
-           heightCm: h.height_cm ?? "—",
-           feiNo: h.fei_no ?? "—",
-           association: h.association ?? "—",
-           riderName: h.rider_name ?? "—",
-           weightKg: h.weight_kg ?? "—",
-           currencyCode: Array.isArray(h.currency_id) ? (h.currency_id[1] ?? "—") : (h.currency_id ?? "—"),
-           purchasePrice: h.purchase_price ?? "—",
-           offeredPrice: h.offered_price ?? "—",
-           dna: h.dna ?? "—",
-           comments: h.comments ?? "—",
-           img: h.image || horseFallback,
-         }));
-        setHorses(mapped);
-      } catch (err) {
-      console.error("[HorseSection] Fetch error:", err);
-      setError(err.message || "Failed to load horses");
-      } finally {
-      setLoading(false);
-      }
-    };
-    fetchHorses();
-  }, [API_BASE]);
-
+  const [refreshKey, setRefreshKey] = useState(0);
   const [selectedHorse, setSelectedHorse] = useState(null);
-
-  const openModal = useCallback(() => setIsOpen(true), []);
-  const closeModal = useCallback(() => {
-    setIsOpen(false);
-    setHorseImagePreview("");
-  }, []);
-
-  useEffect(() => {
-    if (isOpen) document.body.classList.add("modal-open");
-    else document.body.classList.remove("modal-open");
-    return () => document.body.classList.remove("modal-open");
-  }, [isOpen]);
-
-  useEffect(() => {
-    const onKeyDown = (e) => {
-      if (e.key === "Escape" && isOpen) closeModal();
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [isOpen, closeModal]);
-
-  const toggleAccordion = (key) =>
-    setAccordions((prev) => ({ ...prev, [key]: !prev[key] }));
-
-  const handleImageChange = (e) => {
-    const file = e.target.files?.[0] || null;
-    setHorseImagePreview(file ? URL.createObjectURL(file) : "");
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    closeModal();
-  };
+  const [saving, setSaving] = useState(false);
+  const [deleteHorseId, setDeleteHorseId] = useState(null);
 
   const showDetails = (horse) => {
     setSelectedHorse(horse);
     setView("details");
   };
-
   const backToList = () => {
     setSelectedHorse(null);
     setView("list");
   };
+
+  const API_BASE = "http://bioapis.gosmart.eg/api";
+
+  //show data 
+  useEffect(() => {
+  const fetchHorses = async () => {
+    console.log("[HorseSection] Fetching horses...");
+    setLoading(true);
+    setError("");
+    try {
+      const res = await axios.get(`${API_BASE}/horses`);
+      const list = res?.data?.items || [];
+      const mapped = list.map((h) => ({
+        id: h.id,
+        name: h.name ?? "—",
+        horseNo: h.horse_no ?? "—",
+        breederName: h.breeder_name ?? "—",
+        trainingFor: h.training_for ?? "—",
+        offspringNo: h.offspring_no ?? "—",
+        color: h.color ?? "—",
+        breed: h.breed ?? "—",
+        trainingLevel: h.training_level ?? "—",
+        dewormingData: h.deworming_data ?? "—",
+        microchip: h.microchip ?? "—",
+        passportNo: h.passport_no ?? "—",
+        ownerName: h.owner_name ?? "—",
+        vetName: h.vet_name ?? "—",
+        ueln: h.ueln ?? "—",
+        passportExpiryDate: h.passport_expiry_date ?? "",
+        trainerName: h.trainer_name ?? "—",
+        heightCm: h.height_cm ?? "—",
+        feiNo: h.fei_no ?? "—",
+        association: h.association ?? "—",
+        riderName: h.rider_name ?? "—",
+        weightKg: h.weight_kg ?? "—",
+        currencyCode: Array.isArray(h.currency_id)
+          ? h.currency_id[1] ?? "—"
+          : h.currency_id ?? "—",
+        purchasePrice: h.purchase_price ?? "—",
+        offeredPrice: h.offered_price ?? "—",
+        dna: h.dna ?? "—",
+        comments: h.comments ?? "—",
+        img: h.image || horseFallback,
+      }));
+      setHorses(mapped);
+    } catch (err) {
+      console.error("[HorseSection] Fetch error:", err);
+      setError(err.message || "Failed to load horses");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchHorses();
+  }, [API_BASE, refreshKey]); // <-- depend on refreshKey
+
+  //delete
+  const handleDelete = async (horseId) => {
+  try {
+    await axios.delete(`${API_BASE}/horses/${horseId}`);
+    console.log("[HorseSection] Horse deleted:", horseId);
+
+    setHorses((prev) => prev.filter((h) => h.id !== horseId));
+    setView("list");
+    setSelectedHorse(null);
+  } catch (err) {
+    console.error("[HorseSection] Delete error:", err);
+    alert("Failed to delete horse");
+  } finally {
+    setDeleteHorseId(null); // close modal
+  }
+};
+
+  
 
   const [editMode, setEditMode] = useState(false);
   const [editedHorse, setEditedHorse] = useState({});
@@ -140,21 +112,60 @@ export default function HorseSection() {
     }
   }, [selectedHorse]);
 
-  const handleSave = () => {
-    console.log("Saving changes:", editedHorse);
-    setEditMode(false);
-  };
-
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        setEditedHorse({ ...editedHorse, img: ev.target.result });
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      const payload = {
+        name: editedHorse.name,
+        horse_no: editedHorse.horseNo,
+        breed: editedHorse.breed,
+        color: editedHorse.color,
+        age: editedHorse.age,
+        gender: editedHorse.gender,
+        training_for: editedHorse.trainingFor,
+        training_level: editedHorse.trainingLevel,
+        offspring_no: editedHorse.offspringNo,
+        deworming_data: editedHorse.dewormingData,
+        microchip: editedHorse.microchip,
+        passport_no: editedHorse.passportNo,
+        passport_expiry_date: editedHorse.passportExpiryDate,
+        owner_name: editedHorse.ownerName,
+        breeder_name: editedHorse.breederName,
+        vet_name: editedHorse.vetName,
+        ueln: editedHorse.ueln,
+        trainer_name: editedHorse.trainerName,
+        height_cm: editedHorse.heightCm,
+        fei_no: editedHorse.feiNo,
+        association: editedHorse.association,
+        rider_name: editedHorse.riderName,
+        weight_kg: editedHorse.weightKg,
+        purchase_price: editedHorse.purchasePrice,
+        offered_price: editedHorse.offeredPrice,
+        dna: editedHorse.dna,
+        comments: editedHorse.comments,
+        image: editedHorse.img, // URL (already returned by API)
       };
-      reader.readAsDataURL(file);
-    }
-  };
+
+    console.log("[HorseSection] Update payload:", payload);
+
+    const res = await axios.put(`${API_BASE}/horses/${editedHorse.id}`, payload);
+    console.log("[HorseSection] Horse updated:", res.data);
+
+    // Update UI without full refresh
+    setHorses((prev) =>
+      prev.map((h) => (h.id === editedHorse.id ? { ...h, ...editedHorse } : h))
+    );
+
+    setSelectedHorse({ ...editedHorse });
+    setEditMode(false);
+  } catch (err) {
+    console.error("[HorseSection] Update error:", err);
+    alert("Failed to update horse");
+  } finally {
+    setSaving(false);
+  }
+};
+
 
   return (
     <section id="message" className="text-gray-900 dark:text-gray-100">
@@ -164,7 +175,7 @@ export default function HorseSection() {
           Horse Details
         </h6>
         <button
-          onClick={openModal}
+          onClick={() => setIsOpen(true)}
           className="mt-3 md:mt-0 flex items-center gap-2 rounded-md bg-main px-3 py-1 text-xl font-medium text-white hover:opacity-90 dark:bg-main"
         >
           <IoMdAdd />
@@ -217,7 +228,7 @@ export default function HorseSection() {
                       onChange={(e) =>
                         setEditedHorse({ ...editedHorse, name: e.target.value })
                       }
-                      className="w-full rounded border border-gray-300 p-2 text-3xl font-bold text-gray-800 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                      className="w-56 rounded border border-gray-300 p-2 text-3xl font-bold text-gray-800 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                     />
                     <div className="flex items-center gap-2">
                       <input
@@ -265,9 +276,14 @@ export default function HorseSection() {
                     <button
                       onClick={handleSave}
                       type="button"
-                      className="rounded-md bg-green-500 px-4 py-2 font-medium text-white transition-colors hover:bg-green-600"
+                      disabled={saving}
+                      className={`rounded-md px-4 py-2 font-medium text-white transition-colors ${
+                        saving
+                          ? "bg-green-400 cursor-not-allowed"
+                          : "bg-green-500 hover:bg-green-600"
+                      }`}
                     >
-                      Save
+                      {saving ? "Saving..." : "Save"}
                     </button>
                     <button
                       onClick={() => setEditMode(false)}
@@ -288,6 +304,7 @@ export default function HorseSection() {
                     </button>
                     <button
                       type="button"
+                      onClick={() => setDeleteHorseId(selectedHorse.id)}
                       className="rounded bg-red-500 px-4 py-2 font-medium text-white transition-colors hover:bg-red-600"
                     >
                       Delete
@@ -296,6 +313,17 @@ export default function HorseSection() {
                 )}
               </div>
             </div>
+            <ConfirmModal
+              isOpen={!!deleteHorseId}
+              title="Delete Horse"
+              message="Are you sure you want to delete this horse ?"
+              confirmText="Delete"
+              cancelText="Cancel"
+              confirmColor="bg-red-500 hover:bg-red-600"
+              onCancel={() => setDeleteHorseId(null)}
+              onConfirm={() => handleDelete(deleteHorseId)}
+            />
+
 
             {/* Horse Data box */}
             <div className="mb-4 rounded-lg border border-gray-200 bg-gray-100 dark:border-gray-800 dark:bg-gray-900">
@@ -355,7 +383,6 @@ export default function HorseSection() {
                       <input
                         type="file"
                         className="mt-2 w-full rounded border border-gray-300 p-1 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
-                        onChange={handleImageUpload}
                       />
                     )}
                   </div>
@@ -511,12 +538,8 @@ export default function HorseSection() {
       {/* --------------Add Horse Modal --------------- */}
       <HorseModal
         isOpen={isOpen}
-        closeModal={closeModal}
-        handleSubmit={handleSubmit}
-        handleImageChange={handleImageChange}
-        horseImagePreview={horseImagePreview}
-        accordions={accordions}
-        toggleAccordion={toggleAccordion}
+        closeModal={() => setIsOpen(false)}
+        onHorseAdded={() => setRefreshKey((k) => k + 1)}
       />
       <AddModal open={open} onClose={() => setOpen(false)} />
     </section>

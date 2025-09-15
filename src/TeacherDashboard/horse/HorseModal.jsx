@@ -1,13 +1,86 @@
 import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import axios from "axios";
 
-export default function HorseModal({ isOpen, closeModal }) {
+export default function HorseModal({ isOpen, closeModal , onHorseAdded }) {
 const [accordions, setAccordions] = useState({
     data: true,
     registration: false,
     pricing: false,
     notes: false,
 });
+const [formData, setFormData] = useState({
+  name: "",
+  horse_no: "",
+  currency_id: 1,        // integer
+  training_for: "",
+  offspring_no: "",
+  color: "",
+  breed: "",
+  training_level: "",
+  deworming_data: "",
+  age: "",
+  gender: "",
+  microchip: "",
+  passport_no: "",
+  passport_expiry_date: "",
+  height_cm: "",
+  fei_no: "",
+  ueln: "",
+  association: "",
+  weight_kg: "",
+  purchase_price: "",
+  offered_price: "",
+  dna: "",
+  comments: "",
+  image: "",              // will hold base64 string if you want to send file
+});
+// handle input changes
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setFormData((prev) => ({ ...prev, [name]: value }));
+};
+
+// handle submit
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const payload = {
+    name: formData.name,
+    horse_no: formData.horse_no,
+    currency_id: Number(formData.currency_id) || null,
+    training_for: formData.training_for,
+    offspring_no: formData.offspring_no ? Number(formData.offspring_no) : null,
+    color: formData.color,
+    breed: formData.breed,
+    training_level: formData.training_level,
+    deworming_data: formData.deworming_data,
+    age: formData.age ? Number(formData.age) : null,
+    gender: formData.gender,
+    microchip: formData.microchip,
+    passport_no: formData.passport_no,
+    passport_expiry_date: formData.passport_expiry_date,
+    height_cm: formData.height_cm ? Number(formData.height_cm) : null,
+    fei_no: formData.fei_no,
+    ueln: formData.ueln,
+    association: formData.association,
+    weight_kg: formData.weight_kg ? Number(formData.weight_kg) : null,
+    purchase_price: formData.purchase_price ? Number(formData.purchase_price) : null,
+    offered_price: formData.offered_price ? Number(formData.offered_price) : null,
+    dna: formData.dna,
+    comments: formData.comments,
+    image: formData.image, // base64 string if uploaded
+  };
+
+  console.log("[HorseModal] Payload:", payload);
+  try {
+    const res = await axios.post("http://bioapis.gosmart.eg/api/horses/create", payload);
+    console.log("[HorseModal] Success:", res.data);
+    if (onHorseAdded) onHorseAdded();
+    closeModal();
+  } catch (err) {
+    console.error("[HorseModal] Error:", err);
+  }
+};
 
 const toggleAccordion = (section) => {
     setAccordions((prev) => ({
@@ -47,7 +120,7 @@ return (
         </div>
 
         {/* Form */}
-        <form className="mt-4 space-y-6">
+        <form className="mt-4 space-y-6" onSubmit={handleSubmit}>
         <div className="space-y-4">
             {/* ========== HORSE DATA ========== */}
             <button
@@ -74,6 +147,7 @@ return (
                     type="file"
                     id="horseImage"
                     accept="image/*"
+                    required
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     onChange={(e) => {
                         const file = e.target.files[0];
@@ -107,7 +181,11 @@ return (
                     <label className="block font-medium mb-1">Horse No</label>
                     <input
                     type="text"
+                    name="horse_no"
+                    value={formData.horse_no}
+                    onChange={handleChange}
                     placeholder="e.g. 12345"
+                    required 
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -117,6 +195,9 @@ return (
                     <label className="block font-medium mb-1">Horse Name</label>
                     <input
                     type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
                     placeholder="jack"
                     required
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
@@ -128,7 +209,11 @@ return (
                     <label className="block font-medium mb-1">Breed</label>
                     <input
                     type="text"
-                    placeholder="e.g. Arabian"
+                    name="breed"
+                    value={formData.breed}
+                    onChange={handleChange}
+                    placeholder="Arabian"
+                    required
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -138,18 +223,29 @@ return (
                     <label className="block font-medium mb-1">Age</label>
                     <input
                     type="number"
+                    name="age"
+                    value={formData.age}
+                    onChange={handleChange}
                     placeholder="5"
+                    required
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
+
                 </div>
 
                 {/* Gender */}
                 <div>
                     <label className="block font-medium mb-1">Gender</label>
-                    <select className="w-full border rounded-lg p-2 bg-transparent">
+                    <select
+                    name="gender"
+                    value={formData.gender}
+                    onChange={handleChange}
+                    required
+                    className="w-full border rounded-lg p-2 bg-transparent"
+                    >
                     <option value="">Select</option>
-                    <option>Male</option>
-                    <option>Female</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
                     </select>
                 </div>
 
@@ -158,7 +254,11 @@ return (
                     <label className="block font-medium mb-1">Color</label>
                     <input
                     type="text"
-                    placeholder="white"
+                    name="color"
+                    value={formData.color}
+                    onChange={handleChange}
+                    placeholder="Bay"
+                    required
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -169,6 +269,7 @@ return (
                     <input
                     type="text"
                     placeholder="e.g. John Smith"
+                    required
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -178,7 +279,11 @@ return (
                     <label className="block font-medium mb-1">Training For</label>
                     <input
                     type="text"
-                    placeholder="e.g. Jumping"
+                    name="training_for"
+                    value={formData.training_for}
+                    onChange={handleChange}
+                    required
+                    placeholder="Jumping"
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -187,10 +292,14 @@ return (
                 <div>
                     <label className="block font-medium mb-1">Training Level</label>
                     <input
-                    type="text"
-                    placeholder="e.g. Intermediate"
-                    className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
-                    />
+                        type="text"
+                        name="training_level"
+                        value={formData.training_level}
+                        onChange={handleChange}
+                        placeholder="Intermediate"
+                        required
+                        className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
+                        />
                 </div>
 
                 {/* Offspring No */}
@@ -198,7 +307,11 @@ return (
                     <label className="block font-medium mb-1">Offspring No</label>
                     <input
                     type="number"
-                    placeholder="e.g. 3"
+                    name="offspring_no"
+                    value={formData.offspring_no}
+                    onChange={handleChange}
+                    required
+                    placeholder="2"
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -207,7 +320,12 @@ return (
                 <div>
                     <label className="block font-medium mb-1">Deworming Date</label>
                     <input
-                    type="date"
+                    type="text"
+                    name="deworming_data"
+                    required
+                    value={formData.deworming_data}
+                    onChange={handleChange}
+                    placeholder="Done in Aug 2025"
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -239,7 +357,11 @@ return (
                     <label className="block font-medium mb-1">Microchip</label>
                     <input
                     type="text"
-                    placeholder="e.g. 12345"
+                    name="microchip"
+                    value={formData.microchip}
+                    onChange={handleChange}
+                    required
+                    placeholder="123456789012345"
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -249,7 +371,11 @@ return (
                     <label className="block font-medium mb-1">UELN</label>
                     <input
                     type="text"
-                    placeholder="e.g. 12345"
+                    name="ueln"
+                    value={formData.ueln}
+                    onChange={handleChange}
+                    required
+                    placeholder="UELN123456"
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -259,7 +385,11 @@ return (
                     <label className="block font-medium mb-1">FEI No</label>
                     <input
                     type="text"
-                    placeholder="e.g. 12345"
+                    name="fei_no"
+                    value={formData.fei_no}
+                    onChange={handleChange}
+                    required
+                    placeholder="FEI12345"
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -269,7 +399,11 @@ return (
                     <label className="block font-medium mb-1">Passport No</label>
                     <input
                     type="text"
-                    placeholder="e.g. 12345"
+                    name="passport_no"
+                    value={formData.passport_no}
+                    onChange={handleChange}
+                    placeholder="P1234567"
+                    required
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -279,6 +413,10 @@ return (
                     <label className="block font-medium mb-1">Passport Expiry</label>
                     <input
                     type="date"
+                    name="passport_expiry_date"
+                    value={formData.passport_expiry_date}
+                    onChange={handleChange}
+                    required
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -288,7 +426,11 @@ return (
                     <label className="block font-medium mb-1">Association</label>
                     <input
                     type="text"
-                    placeholder="e.g. FEI"
+                    name="association"
+                    value={formData.association}
+                    onChange={handleChange}
+                    required
+                    placeholder="National Horse Club"
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -299,6 +441,7 @@ return (
                     <input
                     type="text"
                     placeholder="e.g. John Smith"
+                    required
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -309,6 +452,7 @@ return (
                     <input
                     type="text"
                     placeholder="e.g. Jane Doe"
+                    required
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -319,6 +463,7 @@ return (
                     <input
                     type="text"
                     placeholder="e.g. Mark Rider"
+                    required
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -329,6 +474,7 @@ return (
                     <input
                     type="text"
                     placeholder="e.g. Dr. Vet"
+                    required
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -338,7 +484,12 @@ return (
                     <label className="block font-medium mb-1">Height (cm)</label>
                     <input
                     type="number"
-                    placeholder="e.g. 160"
+                    step="0.1"
+                    name="height_cm"
+                    value={formData.height_cm}
+                    required
+                    onChange={handleChange}
+                    placeholder="160.5"
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -348,7 +499,12 @@ return (
                     <label className="block font-medium mb-1">Weight (kg)</label>
                     <input
                     type="number"
-                    placeholder="e.g. 450"
+                    step="0.1"
+                    name="weight_kg"
+                    value={formData.weight_kg}
+                    onChange={handleChange}
+                    required
+                    placeholder="450"
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -374,13 +530,16 @@ return (
             {accordions.pricing && (
             <div className="p-4 border border-gray-300 dark:border-gray-700 rounded-lg">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                
                 {/* Purchase Price */}
                 <div>
                     <label className="block font-medium mb-1">Purchase Price (AED)</label>
                     <input
                     type="number"
-                    placeholder="e.g. 12345"
+                    name="purchase_price"
+                    value={formData.purchase_price}
+                    onChange={handleChange}
+                    placeholder="10000"
+                    required
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -390,7 +549,11 @@ return (
                     <label className="block font-medium mb-1">Offered Price (AED)</label>
                     <input
                     type="number"
-                    placeholder="e.g. 12345"
+                    name="offered_price"
+                    value={formData.offered_price}
+                    onChange={handleChange}
+                    required
+                    placeholder="12000"
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -401,6 +564,7 @@ return (
                     <input
                     type="number"
                     placeholder="e.g. 12345"
+                    required
                     className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
                     />
                 </div>
@@ -424,10 +588,14 @@ return (
             {accordions.notes && (
             <div className="p-4 border border-gray-300 dark:border-gray-700 rounded-lg">
                 <textarea
-                placeholder="e.g. 12345"
+                name="comments"
+                value={formData.comments}
+                onChange={handleChange}
+                placeholder="Very calm temperament"
+                required
                 rows="3"
                 className="w-full border rounded-lg p-2 bg-transparent outline-none placeholder:text-gray-600 dark:text-gray-100"
-                ></textarea>
+                />
             </div>
             )}
         </div>

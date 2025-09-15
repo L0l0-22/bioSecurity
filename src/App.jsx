@@ -10,6 +10,7 @@ import CheckPoint from './TeacherDashboard/check/CheckPoint';
 import Settings from './TeacherDashboard/settings/Settings';
 import Profile from './TeacherDashboard/profile/Profile';
 import ScrollToTop from './components/ScrollToTop';
+import Login from './Login';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="settings" element={<Settings />} />
           <Route path="profile" element={<Profile />} />
         </Route>
+        <Route path="login" element={<Login />} />
       </Routes>
     </div>
   );
