@@ -73,7 +73,7 @@ const handleSubmit = async (e) => {
 
   console.log("[HorseModal] Payload:", payload);
   try {
-    const res = await axios.post("http://bioapis.gosmart.eg/api/horses/create", payload);
+    const res = await axios.post("https://bioapis.gosmart.eg/api/horses/create", payload);
     console.log("[HorseModal] Success:", res.data);
     if (onHorseAdded) onHorseAdded();
     closeModal();

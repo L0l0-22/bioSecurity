@@ -1,10 +1,67 @@
-// src/TeacherDashboard/profile/Profile.jsx
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import profile2 from "../../assets/images/horses/profile.jpg";
+import axios from "axios";
+import Loader from "../../components/Loader";
 
 export default function Profile() {
   const [mode, setMode] = useState("view");
+  const auth = JSON.parse(sessionStorage.getItem("authToken"));
+  const token = auth?.token;
+  const id = auth?.id;
+  const API_BASE = "https://bioapis.gosmart.eg/api";
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
+  //show data 
+  useEffect(() => {
+  const fetchProfile = async () => {
+    console.log("[profileSection] Fetching profile...");
+    setLoading(true);
+    setError("");
+    try {
+      const res = await axios.get(`${API_BASE}/profile/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      const profile = res.data.profile;
+      setForm({
+        fullName: profile.name ?? "—",
+        email: profile.email ?? "—",
+        mobile: profile.phone ?? "—",
+        whatsapp: profile.whatsapp_number ?? "—",
+        passportNo: profile.passport_no ?? "—",
+        passportExpiry: profile.passport_expiry_date ?? "—",
+        idNo: profile.id ?? "—",
+        idExpiry: profile.id_expiry_date ?? "—",
+        profession: profile.function ?? "—",
+        company: profile.company ?? "—",
+        country: profile.address?.country ?? "—",
+        address: [
+          profile.address?.street,
+          profile.address?.street2,
+          profile.address?.city,
+          profile.address?.zip,
+          profile.address?.state,
+        ]
+          .filter(Boolean) // remove null/undefined/empty
+          .join(" , ") || "—", // combine into one string
+        equinaPoints: profile.equina_points ?? "—",
+        userType: "Administrator", // maybe hardcoded or from API later
+        photoUrl: profile2,        // or a profile image field if backend sends it
+        tel: "—", // not provided
+        taxNo: "—", // not provided
+      });
+      console.log("[profileSection]" , res);
+    } catch (err) {
+      console.error("[profileSection] Fetch error:", err);
+      setError(err.message || "Failed to load profiles");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchProfile();
+  }, [API_BASE , id, token]);
+  
   const initial = useMemo(
     () => ({
       fullName: "Ahmed Salah",
@@ -52,6 +109,14 @@ export default function Profile() {
     reader.onload = (ev) => setPreview(ev.target?.result || "");
     reader.readAsDataURL(file);
   };
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <p className="text-red-500 dark:text-red-400 bg-red-100 w-full text-center font-medium py-3 text-lg">{error}</p>;
+  }
 
   return (
     <section className="w-full dark:bg-gray-950 dark:text-gray-100">

@@ -7,6 +7,7 @@ import AddModal from "../check/AddModal";
 import axios from "axios";
 import Loader from "../../components/Loader";
 import ConfirmModal from "./ConfirmModal";
+import SuccessModal from "../../components/SuccessModal";
 
 export default function HorseSection() {
   const [view, setView] = useState("list"); // 'list' | 'details'
@@ -19,7 +20,11 @@ export default function HorseSection() {
   const [selectedHorse, setSelectedHorse] = useState(null);
   const [saving, setSaving] = useState(false);
   const [deleteHorseId, setDeleteHorseId] = useState(null);
-
+  const [successModal, setSuccessModal] = useState({
+  isOpen: false,
+  title: "",
+  message: ""
+});
   const showDetails = (horse) => {
     setSelectedHorse(horse);
     setView("details");
@@ -29,80 +34,116 @@ export default function HorseSection() {
     setView("list");
   };
 
-  const API_BASE = "http://bioapis.gosmart.eg/api";
+  const API_BASE = "https://bioapis.gosmart.eg/api";
 
   //show data 
   useEffect(() => {
-  const fetchHorses = async () => {
-    console.log("[HorseSection] Fetching horses...");
-    setLoading(true);
-    setError("");
-    try {
-      const res = await axios.get(`${API_BASE}/horses`);
-      const list = res?.data?.items || [];
-      const mapped = list.map((h) => ({
-        id: h.id,
-        name: h.name ?? "—",
-        horseNo: h.horse_no ?? "—",
-        breederName: h.breeder_name ?? "—",
-        trainingFor: h.training_for ?? "—",
-        offspringNo: h.offspring_no ?? "—",
-        color: h.color ?? "—",
-        breed: h.breed ?? "—",
-        trainingLevel: h.training_level ?? "—",
-        dewormingData: h.deworming_data ?? "—",
-        microchip: h.microchip ?? "—",
-        passportNo: h.passport_no ?? "—",
-        ownerName: h.owner_name ?? "—",
-        vetName: h.vet_name ?? "—",
-        ueln: h.ueln ?? "—",
-        passportExpiryDate: h.passport_expiry_date ?? "",
-        trainerName: h.trainer_name ?? "—",
-        heightCm: h.height_cm ?? "—",
-        feiNo: h.fei_no ?? "—",
-        association: h.association ?? "—",
-        riderName: h.rider_name ?? "—",
-        weightKg: h.weight_kg ?? "—",
-        currencyCode: Array.isArray(h.currency_id)
-          ? h.currency_id[1] ?? "—"
-          : h.currency_id ?? "—",
-        purchasePrice: h.purchase_price ?? "—",
-        offeredPrice: h.offered_price ?? "—",
-        dna: h.dna ?? "—",
-        comments: h.comments ?? "—",
-        img: h.image || horseFallback,
-      }));
-      setHorses(mapped);
-    } catch (err) {
-      console.error("[HorseSection] Fetch error:", err);
-      setError(err.message || "Failed to load horses");
-    } finally {
-      setLoading(false);
-    }
-  };
+    const fetchHorses = async () => {
+      console.log("[HorseSection] Checking cache...");
+      setLoading(true);
+      setError("");
 
-  fetchHorses();
+      try {
+        // 1️⃣ Get cache from localStorage
+        const cached = localStorage.getItem("horsesCache");
+
+        if (cached) {
+          const { data, timestamp } = JSON.parse(cached); // turn string into object
+          const oneHour = 60 * 60 * 1000; // 1 hour in ms
+
+          // if cache is still fresh (< 1 hour)
+          if (Date.now() - timestamp < oneHour) {
+            console.log("[HorseSection] Using cached horses");
+            setHorses(data); // use cached horses
+            setLoading(false);
+            return; // ⬅️ stop here, don’t call API
+          }
+        }
+
+        // 2️⃣ Fetch fresh data if no cache or expired
+        console.log("[HorseSection] Fetching horses from API...");
+        const res = await axios.get(`${API_BASE}/horses`);
+        const list = res?.data?.items || [];
+
+        const mapped = list.map((h) => ({
+          id: h.id,
+          name: h.name ?? "—",
+          horseNo: h.horse_no ?? "—",
+          breederName: h.breeder_name ?? "—",
+          trainingFor: h.training_for ?? "—",
+          offspringNo: h.offspring_no ?? "—",
+          color: h.color ?? "—",
+          breed: h.breed ?? "—",
+          trainingLevel: h.training_level ?? "—",
+          dewormingData: h.deworming_data ?? "—",
+          microchip: h.microchip ?? "—",
+          passportNo: h.passport_no ?? "—",
+          ownerName: h.owner_name ?? "—",
+          vetName: h.vet_name ?? "—",
+          ueln: h.ueln ?? "—",
+          passportExpiryDate: h.passport_expiry_date ?? "",
+          trainerName: h.trainer_name ?? "—",
+          heightCm: h.height_cm ?? "—",
+          feiNo: h.fei_no ?? "—",
+          association: h.association ?? "—",
+          riderName: h.rider_name ?? "—",
+          weightKg: h.weight_kg ?? "—",
+          currencyCode: Array.isArray(h.currency_id)
+            ? h.currency_id[1] ?? "—"
+            : h.currency_id ?? "—",
+          purchasePrice: h.purchase_price ?? "—",
+          offeredPrice: h.offered_price ?? "—",
+          dna: h.dna ?? "—",
+          comments: h.comments ?? "—",
+          img: h.image || horseFallback,
+        }));
+
+        setHorses(mapped);
+
+        // 3️⃣ Save new data in localStorage
+        localStorage.setItem(
+          "horsesCache",
+          JSON.stringify({ data: mapped, timestamp: Date.now() })
+        );
+
+      } catch (err) {
+        console.error("[HorseSection] Fetch error:", err);
+        setError(err.message || "Failed to load horses");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchHorses();
   }, [API_BASE, refreshKey]); // <-- depend on refreshKey
 
   //delete
   const handleDelete = async (horseId) => {
-  try {
-    await axios.delete(`${API_BASE}/horses/${horseId}`);
-    console.log("[HorseSection] Horse deleted:", horseId);
+    try {
+      await axios.delete(`${API_BASE}/horses/${horseId}`);
+      console.log("[HorseSection] Horse deleted:", horseId);
 
-    setHorses((prev) => prev.filter((h) => h.id !== horseId));
-    setView("list");
-    setSelectedHorse(null);
-  } catch (err) {
-    console.error("[HorseSection] Delete error:", err);
-    alert("Failed to delete horse");
-  } finally {
-    setDeleteHorseId(null); // close modal
-  }
-};
+      setHorses((prev) => prev.filter((h) => h.id !== horseId));
+      setView("list");
+      setSelectedHorse(null);
 
-  
-
+      setSuccessModal({
+      isOpen: true,
+      title: "Horse Deleted",
+      message: "The horse has been successfully deleted.",
+      type: "success"
+    });
+    } catch (err) {
+      console.error("[HorseSection] Delete error:", err);
+      setSuccessModal({
+        isOpen: true,
+        title: "Delete Failed",
+        message: err.response?.data?.message || err.message || "Failed to delete horse.",
+        type: "error"    
+      });
+    } finally {
+      setDeleteHorseId(null); // close modal
+    }
+  };
   const [editMode, setEditMode] = useState(false);
   const [editedHorse, setEditedHorse] = useState({});
 
@@ -114,58 +155,69 @@ export default function HorseSection() {
 
   const handleSave = async () => {
     setSaving(true);
-    try {
-      const payload = {
-        name: editedHorse.name,
-        horse_no: editedHorse.horseNo,
-        breed: editedHorse.breed,
-        color: editedHorse.color,
-        age: editedHorse.age,
-        gender: editedHorse.gender,
-        training_for: editedHorse.trainingFor,
-        training_level: editedHorse.trainingLevel,
-        offspring_no: editedHorse.offspringNo,
-        deworming_data: editedHorse.dewormingData,
-        microchip: editedHorse.microchip,
-        passport_no: editedHorse.passportNo,
-        passport_expiry_date: editedHorse.passportExpiryDate,
-        owner_name: editedHorse.ownerName,
-        breeder_name: editedHorse.breederName,
-        vet_name: editedHorse.vetName,
-        ueln: editedHorse.ueln,
-        trainer_name: editedHorse.trainerName,
-        height_cm: editedHorse.heightCm,
-        fei_no: editedHorse.feiNo,
-        association: editedHorse.association,
-        rider_name: editedHorse.riderName,
-        weight_kg: editedHorse.weightKg,
-        purchase_price: editedHorse.purchasePrice,
-        offered_price: editedHorse.offeredPrice,
-        dna: editedHorse.dna,
-        comments: editedHorse.comments,
-        image: editedHorse.img, // URL (already returned by API)
-      };
+      try {
+        const payload = {
+          name: editedHorse.name,
+          horse_no: editedHorse.horseNo,
+          breed: editedHorse.breed,
+          color: editedHorse.color,
+          age: editedHorse.age,
+          gender: editedHorse.gender,
+          training_for: editedHorse.trainingFor,
+          training_level: editedHorse.trainingLevel,
+          offspring_no: editedHorse.offspringNo,
+          deworming_data: editedHorse.dewormingData,
+          microchip: editedHorse.microchip,
+          passport_no: editedHorse.passportNo,
+          passport_expiry_date: editedHorse.passportExpiryDate,
+          owner_name: editedHorse.ownerName,
+          breeder_name: editedHorse.breederName,
+          vet_name: editedHorse.vetName,
+          ueln: editedHorse.ueln,
+          trainer_name: editedHorse.trainerName,
+          height_cm: editedHorse.heightCm,
+          fei_no: editedHorse.feiNo,
+          association: editedHorse.association,
+          rider_name: editedHorse.riderName,
+          weight_kg: editedHorse.weightKg,
+          purchase_price: editedHorse.purchasePrice,
+          offered_price: editedHorse.offeredPrice,
+          dna: editedHorse.dna,
+          comments: editedHorse.comments,
+          image: editedHorse.img, // URL (already returned by API)
+        };
 
-    console.log("[HorseSection] Update payload:", payload);
+      console.log("[HorseSection] Update payload:", payload);
 
-    const res = await axios.put(`${API_BASE}/horses/${editedHorse.id}`, payload);
-    console.log("[HorseSection] Horse updated:", res.data);
+      const res = await axios.put(`${API_BASE}/horses/${editedHorse.id}`, payload);
+      console.log("[HorseSection] Horse updated:", res.data);
 
-    // Update UI without full refresh
-    setHorses((prev) =>
-      prev.map((h) => (h.id === editedHorse.id ? { ...h, ...editedHorse } : h))
-    );
+      // Update UI without full refresh
+      setHorses((prev) =>
+        prev.map((h) => (h.id === editedHorse.id ? { ...h, ...editedHorse } : h))
+      );
 
-    setSelectedHorse({ ...editedHorse });
-    setEditMode(false);
-  } catch (err) {
-    console.error("[HorseSection] Update error:", err);
-    alert("Failed to update horse");
-  } finally {
-    setSaving(false);
-  }
-};
+      setSelectedHorse({ ...editedHorse });
+      setEditMode(false);
 
+      setSuccessModal({
+        isOpen: true,
+        title: "Horse Updated",
+        message: "The horse has been successfully updated.",
+        type: "success"   // ⬅️ green modal
+      });
+    } catch (err) {
+      console.error("[HorseSection] Update error:", err);
+      setSuccessModal({
+        isOpen: true,
+        title: "Update Failed",
+        message: err.response?.data?.message || err.message || "Failed to update horse.",
+        type: "error"     
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
 
   return (
     <section id="message" className="text-gray-900 dark:text-gray-100">
@@ -187,7 +239,7 @@ export default function HorseSection() {
       {view === "list" && (
         <>
         {loading && <Loader/>}
-        {error && <p className="text-red-500 dark:text-red-400">{error}</p>}
+        {error && <p className="text-red-500 dark:text-red-400 bg-red-100 w-full text-center font-medium py-3 text-lg">{error}</p>}
         <div id="horse-list" className="flexing-horses cursor-pointer">
           {horses.map((h, i) => (
             <div
@@ -376,6 +428,7 @@ export default function HorseSection() {
                     <img
                       src={selectedHorse.img}
                       alt={selectedHorse.name}
+                      loading="lazy"
                       className="h-44 rounded-lg shadow-md"
                       onError={(e) => { e.currentTarget.src = horseFallback; }}
                     />
@@ -542,6 +595,14 @@ export default function HorseSection() {
         onHorseAdded={() => setRefreshKey((k) => k + 1)}
       />
       <AddModal open={open} onClose={() => setOpen(false)} />
+      <SuccessModal
+        isOpen={successModal.isOpen}
+        onClose={() => setSuccessModal({ isOpen: false, title: "", message: "" })}
+        title={successModal.title}
+        message={successModal.message}
+        type={successModal.type}   // ⬅️ pass type here
+      />
+
     </section>
   );
 }
